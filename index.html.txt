@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kulfie Design — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0b0f;
+      --surface: #14141c;
+      --surface-hover: #1c1c27;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f4f4f6;
+      --muted: #9ca3af;
+      --accent: #7c5cff;
+      --accent-glow: rgba(124, 92, 255, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 11, 15, 0.8);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #fff;
+      text-decoration: none;
+    }
+    .brand span { color: var(--accent); }
+    nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #fff; }
+
+    .hero {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 5.5rem 1.5rem 4rem;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(124, 92, 255, 0.4);
+      color: #c4b5fd;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.12;
+      margin-bottom: 1.1rem;
+    }
+    .hero p {
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 0.85rem 1.6rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 25px var(--accent-glow);
+    }
+    .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .btn-outline {
+      background: var(--surface);
+      color: #fff;
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { background: var(--surface-hover); }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .section-head:first-of-type { border-top: none; padding-top: 1rem; }
+    .section-head h2 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .section-head p { color: var(--muted); font-size: 0.95rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .grid-wide {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(124, 92, 255, 0.5);
+    }
+    .card-img-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      overflow: hidden;
+      background: #101016;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-img-wrap.portrait { aspect-ratio: 4 / 5; }
+    .card-img-wrap.square { aspect-ratio: 1 / 1; }
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+    .card img.contain {
+      object-fit: contain;
+      padding: 1.5rem;
+    }
+    .card:hover img { transform: scale(1.04); }
+    .card-body { padding: 1.15rem 1.25rem; }
+    .card-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #a78bfa;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      max-width: 92vw;
+      max-height: 88vh;
+      position: relative;
+      text-align: center;
+    }
+    .modal-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+    .modal-caption {
+      margin-top: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .modal-close {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.5rem;
+      background: var(--surface);
+      color: #fff;
+      border: 1px solid var(--border);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 640px) {
+      nav { display: none; }
+      .grid, .grid-wide { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-wrap">
+      <a href="#" class="brand">Kulfie<span>Design</span></a>
+      <nav>
+        <a href="#uiux">UI/UX Design</a>
+        <a href="#social">Social Media Design</a>
+        <a href="#branding">Logos</a>
+        <a href="#tshirt">T-Shirt Design</a>
+        <a href="#graphic">Graphic Design</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="badge">UI/UX &bull; Brand Identity &bull; Visual Design</span>
+    <h1>Crafting Clean Interfaces &amp; Bold Visual Stories</h1>
+    <p>A curated showcase of web &amp; mobile UI/UX systems, social media creatives, custom apparel graphics, and brand identities.</p>
+    <div class="cta-group">
+      <a href="#uiux" class="btn btn-primary">Explore Work</a>
+      <a href="#graphic" class="btn btn-outline">Graphic Design</a>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- 1. UI/UX DESIGN -->
+    <div class="section-head" id="uiux">
+      <div>
+        <h2>UI/UX Design</h2>
+        <p>Web landing pages, SaaS dashboards, and interactive authentication flows</p>
+      </div>
+    </div>
+    <div class="grid-wide">
+      <div class="card" onclick="openModal('img/ai-landing.png', 'AI Platform Landing Page')">
+        <div class="card-img-wrap"><img src="img/ai-landing.png" alt="AI Landing Page" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Web UI</span><div class="card-title">AI Platform Landing Page</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/dashboard-design.png', 'Analytics Dashboard Overview')">
+        <div class="card-img-wrap"><img src="img/dashboard-design.png" alt="Dashboard Design" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">SaaS UI</span><div class="card-title">Analytics Dashboard Overview</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/dashboard-ui-1.png', 'Dashboard Interface — Module 01')">
+        <div class="card-img-wrap"><img src="img/dashboard-ui-1.png" alt="Dashboard UI 1" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Web App</span><div class="card-title">Dashboard Interface — Module 01</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/dashboard-ui-2.png', 'Dashboard Interface — Module 02')">
+        <div class="card-img-wrap"><img src="img/dashboard-ui-2.png" alt="Dashboard UI 2" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Web App</span><div class="card-title">Dashboard Interface — Module 02</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/dashboard-ui-3.png', 'Dashboard Interface — Module 03')">
+        <div class="card-img-wrap"><img src="img/dashboard-ui-3.png" alt="Dashboard UI 3" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Web App</span><div class="card-title">Dashboard Interface — Module 03</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/planet-community.png', 'Planet Community Platform')">
+        <div class="card-img-wrap"><img src="img/planet-community.png" alt="Planet Community" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Web UI</span><div class="card-title">Planet Community Experience</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/planet-1.png', 'Planet UI Screen 01')">
+        <div class="card-img-wrap"><img src="img/planet-1.png" alt="Planet 1" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Interface</span><div class="card-title">Planet Concept — Screen 01</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/planet-2.png', 'Planet UI Screen 02')">
+        <div class="card-img-wrap"><img src="img/planet-2.png" alt="Planet 2" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Interface</span><div class="card-title">Planet Concept — Screen 02</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/planet-3.png', 'Planet UI Screen 03')">
+        <div class="card-img-wrap"><img src="img/planet-3.png" alt="Planet 3" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Interface</span><div class="card-title">Planet Concept — Screen 03</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/login-flow-cover.jpg', 'Authentication & Onboarding Flow')">
+        <div class="card-img-wrap"><img src="img/login-flow-cover.jpg" alt="Login Flow Cover" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">UX Flow</span><div class="card-title">Authentication &amp; Onboarding System</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/login-anim-1.png', 'Animated Login State 01')">
+        <div class="card-img-wrap"><img src="img/login-anim-1.png" alt="Login Animation 1" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Micro-Interaction</span><div class="card-title">Interactive Login — State 01</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/login-anim-2.png', 'Animated Login State 02')">
+        <div class="card-img-wrap"><img src="img/login-anim-2.png" alt="Login Animation 2" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Micro-Interaction</span><div class="card-title">Interactive Login — State 02</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/login-anim-3.png', 'Animated Login State 03')">
+        <div class="card-img-wrap"><img src="img/login-anim-3.png" alt="Login Animation 3" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Micro-Interaction</span><div class="card-title">Interactive Login — State 03</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/login-group.png', 'Complete Auth Screen Set')">
+        <div class="card-img-wrap"><img src="img/login-group.png" alt="Login Group" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Mobile UI</span><div class="card-title">Login, Registration &amp; Verification Screens</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/login.png', 'Login Screen')">
+        <div class="card-img-wrap"><img src="img/login.png" alt="Login Screen" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Mobile UI</span><div class="card-title">Login Screen</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/registration.png', 'Registration Screen')">
+        <div class="card-img-wrap"><img src="img/registration.png" alt="Registration Screen" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Mobile UI</span><div class="card-title">Registration Screen</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/verify.png', 'Verification Screen')">
+        <div class="card-img-wrap"><img src="img/verify.png" alt="Verification Screen" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Mobile UI</span><div class="card-title">Verification Screen</div></div>
+      </div>
+    </div>
+
+    <!-- 2. SOCIAL MEDIA DESIGN -->
+    <div class="section-head" id="social">
+      <div>
+        <h2>Social Media Design</h2>
+        <p>Product campaigns, skincare creatives, jewellery showcases, and brand promotions</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card" onclick="openModal('img/cover-snap8.jpg', 'Evolabs Research — Snap-8 Peptide Serum')">
+        <div class="card-img-wrap square"><img src="img/cover-snap8.jpg" alt="Snap-8 Cover" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Evolabs Research — Snap-8 Peptide Serum</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/snap8-serum.jpg', 'Snap-8 Peptide Serum Campaign')">
+        <div class="card-img-wrap square"><img src="img/snap8-serum.jpg" alt="Snap-8 Serum" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Snap-8 Peptide Serum — Product Creative</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/snap8-peptide.jpg', 'Snap-8 Formula Highlight')">
+        <div class="card-img-wrap square"><img src="img/snap8-peptide.jpg" alt="Snap-8 Peptide" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Snap-8 Peptide — Active Ingredients Post</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/cover-sliimba.jpg', 'Sliimba Campaign Cover')">
+        <div class="card-img-wrap square"><img src="img/cover-sliimba.jpg" alt="Sliimba Cover" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Sliimba — Brand Campaign</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/sliimba.jpg', 'Sliimba Promotional Creative')">
+        <div class="card-img-wrap square"><img src="img/sliimba.jpg" alt="Sliimba" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Sliimba — Product Spotlight</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/cover-jewellery.jpg', 'Jewellery Campaign Cover')">
+        <div class="card-img-wrap square"><img src="img/cover-jewellery.jpg" alt="Jewellery Cover" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Luxury Jewellery Collection</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/jewellery-1.jpg', 'Jewellery Creative 01')">
+        <div class="card-img-wrap square"><img src="img/jewellery-1.jpg" alt="Jewellery 1" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Jewellery Showcase — 01</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/jewellery-2.jpg', 'Jewellery Creative 02')">
+        <div class="card-img-wrap square"><img src="img/jewellery-2.jpg" alt="Jewellery 2" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Jewellery Showcase — 02</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/jewellery-3.jpg', 'Jewellery Creative 03')">
+        <div class="card-img-wrap square"><img src="img/jewellery-3.jpg" alt="Jewellery 3" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Jewellery Showcase — 03</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/toposel.jpg', 'Toposel Campaign Creative')">
+        <div class="card-img-wrap square"><img src="img/toposel.jpg" alt="Toposel" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Social Media Design</span><div class="card-title">Toposel — Brand Creative</div></div>
+      </div>
+    </div>
+
+    <!-- 3. LOGOS & BRAND IDENTITY -->
+    <div class="section-head" id="branding">
+      <div>
+        <h2>Logo &amp; Brand Identity</h2>
+        <p>Minimalist marks, wordmarks, and scalable brand symbols</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card" onclick="openModal('img/logo-koen.png', 'Koen Brand Identity')">
+        <div class="card-img-wrap"><img class="contain" src="img/logo-koen.png" alt="Koen Logo" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Logo Design</span><div class="card-title">Koen</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/logo-dcx.png', 'DCX Brand Identity')">
+        <div class="card-img-wrap"><img class="contain" src="img/logo-dcx.png" alt="DCX Logo" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Logo Design</span><div class="card-title">DCX</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/logo-ecoplate.png', 'EcoPlate Brand Identity')">
+        <div class="card-img-wrap"><img class="contain" src="img/logo-ecoplate.png" alt="EcoPlate Logo" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Logo Design</span><div class="card-title">EcoPlate</div></div>
+      </div>
+    </div>
+
+    <!-- 4. T-SHIRT DESIGN -->
+    <div class="section-head" id="tshirt">
+      <div>
+        <h2>T-Shirt Design</h2>
+        <p>Custom apparel graphics and streetwear print concepts</p>
+      </div>
+    </div>
+    <div class="grid-wide">
+      <div class="card" onclick="openModal('img/tshirt-1.png', 'T-Shirt Design — Edition 01')">
+        <div class="card-img-wrap square"><img src="img/tshirt-1.png" alt="T-Shirt Design 1" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">T-Shirt Design</span><div class="card-title">Custom Apparel Graphic — 01</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/tshirt-2.png', 'T-Shirt Design — Edition 02')">
+        <div class="card-img-wrap square"><img src="img/tshirt-2.png" alt="T-Shirt Design 2" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">T-Shirt Design</span><div class="card-title">Custom Apparel Graphic — 02</div></div>
+      </div>
+    </div>
+
+    <!-- 5. GRAPHIC DESIGN -->
+    <div class="section-head" id="graphic">
+      <div>
+        <h2>Graphic Design</h2>
+        <p>Automotive art, cinematic edits, retro compositions, and gaming visuals</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card" onclick="openModal('img/car-poster-dodge.jpg', 'Dodge Automotive Artwork')">
+        <div class="card-img-wrap portrait"><img src="img/car-poster-dodge.jpg" alt="Dodge" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Dodge Muscle Edition</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/car-poster-porsche-red.jpg', 'Porsche Red Edition')">
+        <div class="card-img-wrap portrait"><img src="img/car-poster-porsche-red.jpg" alt="Porsche Red" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Porsche Crimson Series</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/car-poster-porsche-ink.jpg', 'Porsche Ink Art')">
+        <div class="card-img-wrap portrait"><img src="img/car-poster-porsche-ink.jpg" alt="Porsche Ink" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Porsche Ink Illustration</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/poster-gt3rs.jpg', 'Porsche GT3 RS')">
+        <div class="card-img-wrap portrait"><img src="img/poster-gt3rs.jpg" alt="GT3 RS" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Porsche 911 GT3 RS</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/poster-gtr34.jpg', 'Nissan GT-R R34')">
+        <div class="card-img-wrap portrait"><img src="img/poster-gtr34.jpg" alt="GTR R34" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Nissan Skyline GT-R R34</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/poster-f40.jpg', 'Ferrari F40 Classic')">
+        <div class="card-img-wrap portrait"><img src="img/poster-f40.jpg" alt="Ferrari F40" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Ferrari F40 Legend</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/poster-lamborghini.jpg', 'Lamborghini Visual')">
+        <div class="card-img-wrap portrait"><img src="img/poster-lamborghini.jpg" alt="Lamborghini" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Lamborghini Dark Edition</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/poster-spiderman-porsche.jpg', 'Spider-Man x Porsche Crossover')">
+        <div class="card-img-wrap portrait"><img src="img/poster-spiderman-porsche.jpg" alt="Spiderman Porsche" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Spider-Man &times; Porsche</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/poster-retro.jpg', 'Retro Visual Composition')">
+        <div class="card-img-wrap portrait"><img src="img/poster-retro.jpg" alt="Retro" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Retro 90s Visual Edit</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/poster-freefire.jpg', 'Free Fire Esports Artwork')">
+        <div class="card-img-wrap portrait"><img src="img/poster-freefire.jpg" alt="Free Fire" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Free Fire Gaming Key Art</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/cover-wall-posters.jpg', 'Automotive Wall Art Series')">
+        <div class="card-img-wrap portrait"><img src="img/cover-wall-posters.jpg" alt="Wall Art Cover" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Automotive Art Collection</div></div>
+      </div>
+      <div class="card" onclick="openModal('img/cover-freefire.jpg', 'Gaming Visual Series')">
+        <div class="card-img-wrap portrait"><img src="img/cover-freefire.jpg" alt="Freefire Cover" loading="lazy"></div>
+        <div class="card-body"><span class="card-tag">Graphic Design</span><div class="card-title">Gaming Visual Showcase</div></div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="modal" id="lightbox" onclick="closeModal(event)">
+    <button class="modal-close" onclick="closeModal(event)">&times;</button>
+    <div class="modal-content">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Kulfie Design. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function openModal(src, title) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalCaption').textContent = title;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeModal(e) {
+      if (e.target.id === 'lightbox' || e.target.classList.contains('modal-close')) {
+        document.getElementById('lightbox').classList.remove('open');
+      }
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+    });
+  </script>
+</body>
+</html>
